@@ -1,0 +1,21 @@
+include(
+        /*壳工程*/
+        ':app',
+        /*功能组件*/
+        ':business:lib_base',
+        ':business:lib_net',
+        ':business:widget_spencer',
+        ':business:widget_ui',
+        /*业务组件*/
+        ':function:module_reader',
+        ':function:common',
+        ':function:module_main',
+        /*具体项目业务组件*/
+        ':function:chart:module_recommed',
+        ':function:chart:module_template',
+        ':function:chart:module_make',
+        ':function:chart:module_mine'
+
+
+)
+rootProject.name = "component-extension-fram"

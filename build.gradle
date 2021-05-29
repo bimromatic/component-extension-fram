@@ -1,0 +1,25 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    apply from: 'versions.gradle'
+    addRepos(repositories)
+    dependencies {
+        classpath deps.android_gradle_plugin
+        classpath deps.aspectjx
+        classpath deps.kotlins.kotlin_gradle_plugin
+        classpath deps.jst_componentinitializer
+        classpath deps.xaop_plugin
+    }
+
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+allprojects {
+    addRepos(repositories)
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

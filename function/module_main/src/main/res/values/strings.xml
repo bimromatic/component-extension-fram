@@ -1,0 +1,16 @@
+<resources>
+
+    <string name="main_name">"main程序入口"</string>
+
+
+
+
+    <!--main_bottom_nav-->
+    <string name="nav_recommend">推荐</string>
+    <string name="nav_template">模版</string>
+    <string name="nav_make">制作</string>
+    <string name="nav_mine">我的</string>
+    <!--main_bottom_nav-->
+
+
+</resources>

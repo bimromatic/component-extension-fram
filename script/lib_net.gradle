@@ -1,0 +1,21 @@
+apply from: plugins_path.base_lib
+apply plugin: 'kotlin-android'
+
+android {
+
+    defaultConfig {
+        buildConfigField "String", "DEBUG_URL_BASE", DEBUG_URL_BASE
+        buildConfigField "String", "REALSE_URL_BASE", REALSE_URL_BASE
+    }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
+    //resourcePrefix "net_"
+}
+
+dependencies {
+    implementation fileTree(include : [ "*.jar", '*.aar'], dir : "libs")
+    api project(path: ':business:lib_base')
+}

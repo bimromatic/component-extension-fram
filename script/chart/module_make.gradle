@@ -1,0 +1,33 @@
+apply from: plugins_path.base_module
+apply plugin: 'android-aspectjx'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    defaultConfig{
+        if (isModule.toBoolean()){
+            applicationId "com.bimromatic.nest_tree.${project.getName()}"
+        }
+    }
+
+
+    //aop configuration
+    aspectjx {
+        include 'com.bimromatic.nest_tree.'+project.getName()
+    }
+
+    //resourcePrefix "reader_"
+}
+
+
+dependencies {
+    implementation fileTree(include : [ "*.jar", '*.aar'], dir : "libs")
+
+    annotationProcessor deps.arouter.arouter_compiler
+    annotationProcessor deps.service.auto_service_processor
+    annotationProcessor deps.xstarter_compiler
+
+    kapt deps.xstarter_compiler
+    kapt deps.arouter.arouter_compiler
+    kapt deps.service.auto_service_processor
+}

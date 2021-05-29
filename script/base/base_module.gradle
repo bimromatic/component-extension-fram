@@ -1,0 +1,96 @@
+if (isModule.toBoolean()){
+    apply plugin: 'com.android.application'
+}else {
+    apply plugin: 'com.android.library'
+}
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+
+android {
+    compileSdkVersion build_versions.compile_sdk
+    buildToolsVersion build_versions.build_tools
+    defaultConfig {
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionName build_versions.version_name
+        versionCode build_versions.version_code
+        testInstrumentationRunner android_junit_runner.runner
+
+        ndk {
+            // 设置支持的SO库架构
+            //abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86'
+        }
+
+        // Add to each build
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName(),STARTER_MODULE_NAME: project.getName()]
+            }
+        }
+
+        //consumerProguardFiles "consumer-rules.pro"
+    }
+
+    // Support Java JDK 8
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main {
+            if (isModule.toBoolean()){
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            }else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+                //集成开发模式下排除debug文件夹中的所有Java文件
+                java {
+                    exclude 'debug/**'
+                }
+                kotlin {
+                    exclude 'debug/**'
+                }
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        viewBinding = true
+    }
+}
+
+kapt {
+    arguments {
+        arg("STARTER_MODULE_NAME", project.getName())
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+    //generateStubs = true
+}
+
+dependencies {
+    implementation fileTree(include: ["*.jar", '*.aar'], dir: "libs")
+    api project(path: ':function:common')
+
+
+    annotationProcessor deps.arouter.arouter_compiler
+    annotationProcessor deps.service.auto_service_processor
+    annotationProcessor deps.xstarter_compiler
+
+    kapt deps.xstarter_compiler
+    kapt deps.arouter.arouter_compiler
+    kapt deps.service.auto_service_processor
+
+}

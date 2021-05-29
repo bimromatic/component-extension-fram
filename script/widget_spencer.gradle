@@ -1,0 +1,14 @@
+apply from: plugins_path.base_lib
+apply plugin: 'kotlin-android'
+
+
+android {
+    buildFeatures {
+        viewBinding = true
+    }
+}
+
+dependencies {
+    implementation fileTree(include : [ "*.jar", '*.aar'], dir : "libs")
+    api project(path: ':business:lib_base')
+}

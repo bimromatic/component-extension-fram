@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.bimromatic.component.lib_base">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.GET_PACKAGE_SIZE" />
+
+    <uses-permission
+        android:name="android.permission.READ_LOGS"
+        tools:ignore="ProtectedPermissions" />
+
+    <application android:name="com.bimromatic.component.lib_base.app.BaseApplication">
+
+        <meta-data
+            android:name="design_width_in_dp"
+            android:value="375"/>
+
+        <meta-data
+            android:name="design_height_in_dp"
+            android:value="812"/>
+
+        <!--适配华为（huawei）刘海屏-->
+        <meta-data
+            android:name="android.notch_support"
+            android:value="true"/>
+
+        <!--适配小米（xiaomi）刘海屏-->
+        <meta-data
+            android:name="notch.config"
+            android:value="portrait|landscape" />
+
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+
+
+        <!-- 全局Context提供者 -->
+        <provider
+            android:name=".provider.CommonProvider"
+            android:authorities="${applicationId}.contextprovider"
+            android:exported="false" />
+
+
+        <service android:name=".service.InitializeService"
+            android:enabled="true"
+            android:exported="false"/>
+
+    </application>
+</manifest>

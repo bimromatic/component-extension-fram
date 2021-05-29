@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="window_anim_duration">400</integer>
+
+    <!-- Activity 转场动画时间 -->
+    <integer name="activity_anim_duration">200</integer>
+</resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="testRunner" value="PLATFORM" />
+        <option name="disableWrapperSourceDistributionNotification" value="true" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="$USER_HOME$/.gradle/wrapper/dists/gradle-4.6" />
+        <option name="gradleJvm" value="1.8" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/business" />
+            <option value="$PROJECT_DIR$/business/lib_base" />
+            <option value="$PROJECT_DIR$/business/lib_net" />
+            <option value="$PROJECT_DIR$/business/widget_spencer" />
+            <option value="$PROJECT_DIR$/business/widget_ui" />
+            <option value="$PROJECT_DIR$/function" />
+            <option value="$PROJECT_DIR$/function/chart" />
+            <option value="$PROJECT_DIR$/function/chart/module_make" />
+            <option value="$PROJECT_DIR$/function/chart/module_mine" />
+            <option value="$PROJECT_DIR$/function/chart/module_recommed" />
+            <option value="$PROJECT_DIR$/function/chart/module_template" />
+            <option value="$PROJECT_DIR$/function/common" />
+            <option value="$PROJECT_DIR$/function/module_main" />
+            <option value="$PROJECT_DIR$/function/module_reader" />
+          </set>
+        </option>
+        <option name="resolveModulePerSourceSet" value="false" />
+        <option name="useQualifiedModuleNames" value="true" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

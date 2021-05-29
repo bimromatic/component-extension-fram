@@ -1,0 +1,156 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'android-aspectjx'
+apply plugin: 'kotlin-kapt'
+//apply plugin: 'com.jst.component.initializer'
+
+android {
+    compileSdkVersion build_versions.compile_sdk
+    buildToolsVersion build_versions.build_tools
+    defaultConfig {
+        applicationId "com.bimromatic.component"
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionName build_versions.version_name
+        versionCode build_versions.version_code
+        testInstrumentationRunner android_junit_runner.runner
+
+
+        resConfigs 'zh'
+        resConfig 'xxhdpi'
+
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName(),STARTER_MODULE_NAME: project.getName()]
+            }
+        }
+    }
+
+    // 支持 Java JDK 8
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+
+    //不同环境下Manifest.xml中application属性配置
+    buildTypes {
+        debug {
+            //applicationIdSuffix '.debug'
+            debuggable true
+            jniDebuggable true
+            zipAlignEnabled false
+            shrinkResources false
+            minifyEnabled false
+            //signingConfig signingConfigs.config
+            buildConfigField('boolean', 'LOG_ENABLE', 'true')
+            //manifestPlaceholders = ['app_name' : 'debug']
+            //配置一些自定义参数——测试环境
+            manifestPlaceholders = [//友盟key
+                                    MANIFEST_UMENG_KEY: "友盟key",
+                                    //高德地图key
+                                    MANIFEST_GAODE_KEY: "高德地图key",
+                                    //极光推送-包名
+                                    JPUSH_PKGNAME     : "",
+                                    //极光推送-appKey
+                                    JPUSH_APPKEY      : "极光推送-appKey",
+                                    //极光推送-渠道
+                                    JPUSH_CHANNEL     : "mm",
+                                    //服务器接口地址
+                                    MANIFEST_BASE_URL : "",
+            ]
+
+
+            ndk {
+                abiFilters 'armeabi-v7a'
+            }
+
+            //ext.enableCrashlytics = false
+            //禁用pns 压缩
+            //crunchpngs false
+        }
+
+        preview.initWith(debug)
+
+        preview {
+            applicationIdSuffix '.preview'
+            manifestPlaceholders = ['app_name' : 'preview']
+        }
+
+        release {
+            debuggable false
+            jniDebuggable false
+            zipAlignEnabled true
+            shrinkResources true
+            minifyEnabled true
+            //signingConfig signingConfigs.config
+            buildConfigField('boolean', 'LOG_ENABLE', 'false')
+            manifestPlaceholders = ['app_name' : '@string/app_name']
+            ndk {
+                abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86'
+            }
+        }
+    }
+
+    // aop configuration
+    aspectjx {
+        include 'com.bimromatic.nest_tree'
+    }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
+
+//    sourceSets {
+//        main {
+//            //println("---gradleProperties---->" + isModuleRun.toBoolean())
+//            if (isModuleRun.toBoolean()) {
+                 //todo 注意：在配置Gradle的时候 manifest.srcFile... manifest 是小写的
+//                manifest.srcFile 'src/main/debug/AndroidManifest.xml'
+//            } else {
+//                manifest.srcFile 'src/main/AndroidManifest.xml'
+//                java {
+//                    //全部Module一起编译的时候剔除debug目录
+//                    exclude '**/debug/**'
+//    排除java/debug文件夹下的所有文件
+//    exclude '*module'
+//                }
+//            }
+//        }
+//    }
+
+
+}
+
+kapt {
+    arguments {
+        arg("STARTER_MODULE_NAME", project.getName())
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+    //generateStubs = true
+}
+
+dependencies {
+    implementation fileTree(include : [ "*.jar", '*.aar'], dir : "libs")
+
+    implementation project(path: ':function:common')
+    if (!isModule.toBoolean()) {
+        //为了防止外部直接引用 组件内的类，可以在集成到工程中时 采用runtimeOnly
+        runtimeOnly project(path: ':function:module_reader')
+        runtimeOnly project(path: ':function:module_main')
+        runtimeOnly project(path: ':function:common')
+    } else {
+
+    }
+
+    annotationProcessor deps.arouter.arouter_compiler
+    annotationProcessor deps.service.auto_service_processor
+    annotationProcessor deps.xstarter_compiler
+
+    kapt deps.xstarter_compiler
+    kapt deps.arouter.arouter_compiler
+    kapt deps.service.auto_service_processor
+
+}

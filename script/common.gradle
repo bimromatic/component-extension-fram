@@ -1,0 +1,40 @@
+apply from: plugins_path.base_lib
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+
+    defaultConfig {
+        resValue "string", "VERSION_STATUS", versions_status.ALPHA
+        buildConfigField "String", "VERSION_STATUS",  versionsStatus
+    }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
+    resourcePrefix "net_"
+}
+
+kapt {
+    arguments {
+        arg("STARTER_MODULE_NAME", project.getName())
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+    //generateStubs = true
+}
+
+
+dependencies {
+    implementation fileTree(include : [ "*.jar", '*.aar'], dir : "libs")
+    api project(path: ':business:lib_net')
+
+    annotationProcessor deps.arouter.arouter_compiler
+    annotationProcessor deps.service.auto_service_processor
+    annotationProcessor deps.xstarter_compiler
+
+    kapt deps.xstarter_compiler
+    kapt deps.arouter.arouter_compiler
+    kapt deps.service.auto_service_processor
+
+}

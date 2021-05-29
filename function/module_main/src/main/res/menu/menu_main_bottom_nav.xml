@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_recommed"
+        android:icon="@mipmap/ic_nav_recommed_off"
+        android:title="@string/nav_recommend"/>
+    <item
+        android:id="@+id/nav_template"
+        android:icon="@mipmap/ic_nav_template_off"
+        android:title="@string/nav_template"/>
+
+    <item
+        android:id="@+id/nav_make"
+        android:icon="@mipmap/ic_nav_make_off"
+        android:title="@string/nav_make"/>
+
+    <item
+        android:id="@+id/nav_mine"
+        android:icon="@mipmap/ic_nav_mine_off"
+        android:title="@string/nav_mine"/>
+</menu>

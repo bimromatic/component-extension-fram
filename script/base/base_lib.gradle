@@ -1,0 +1,59 @@
+apply plugin: 'com.android.library'
+apply plugin: 'android-aspectjx'
+apply plugin: 'kotlin-android'
+
+
+android {
+    compileSdkVersion build_versions.compile_sdk
+    buildToolsVersion build_versions.build_tools
+    defaultConfig {
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionName build_versions.version_name
+        versionCode build_versions.version_code
+        testInstrumentationRunner build_versions.runner
+
+        ndk {
+            // 设置支持的SO库架构
+            //abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86'
+        }
+
+        consumerProguardFiles "consumer-rules.pro"
+
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName(),STARTER_MODULE_NAME: project.getName()]
+            }
+        }
+
+        //java.lang.StackOverflowError scala case class 字段太多，我的有一百多个字段，导致栈溢出
+        //https://blog.csdn.net/zpf336/article/details/95054927
+//        compileScala {
+//            options.fork = true
+//            options.forkOptions.jvmArgs += ["-Xss8M"]
+//        }
+    }
+
+    // 支持 Java JDK 8
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+    //在Android代码块中添加如下配置：（可优化transformClassDexBuilderForDebug的时间）
+//    dexOptions {
+//        preDexLibraries true
+//        maxProcessCount 8
+//    }
+
+//    //如果有用到kapt添加如下配置
+//    kapt {
+//        useBuildCache = true
+//        javacOptions {
+//            option("-Xmaxerrs", 500)
+//        }
+//    }
+}
+

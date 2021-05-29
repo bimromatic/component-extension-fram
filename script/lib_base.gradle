@@ -1,0 +1,105 @@
+apply from: plugins_path.base_lib
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.xuexiang.xaop'
+//apply plugin: 'com.jst.component.initializer'
+
+android {
+
+    buildFeatures {
+        viewBinding = true
+    }
+
+    //resourcePrefix "base_"
+}
+
+dependencies {
+    // rely on all jar and aar packages in the libs directory
+    implementation fileTree(include : [ "*.jar", '*.aar'], dir : "libs")
+    api deps.app_compat
+    api deps.material
+    api deps.multidex
+    api deps.constraint_layout
+    api deps.autosize
+    api deps.loadsir
+    api deps.titlebar
+    api deps.bar
+    api deps.lottie
+
+    //api 'com.sunchen:netstatusbus:0.1.5'
+
+    api deps.network
+
+    api deps.launcherstarter
+    api deps.aspectjrt
+
+    api deps.logs.timber
+    api deps.toast
+
+    api deps.gson
+    api deps.kotlins.tdlib_jdk7
+
+    api deps.arouter.arouter_api
+    api deps.service.auto_service
+
+    annotationProcessor deps.arouter.arouter_compiler
+    kapt deps.arouter.arouter_compiler
+    annotationProcessor deps.service.auto_service_processor
+    kapt deps.service.auto_service_processor
+
+    testImplementation deps.junit
+    androidTestImplementation deps.test_ext_junit
+    //espresso ui testing
+    androidTestImplementation deps.espresso.core
+    androidTestImplementation deps.espresso.contrib
+    androidTestImplementation deps.espresso.intents
+    //业务组件、业务基础组件 共同依赖的库（网络库、图片库等）都写在这里~
+
+    // leak detection
+    debugApi deps.leakcanary.leakcanary_android
+    //previewImplementation deps.leakcanary.leakcanary_android
+
+
+    //api deps.componentinitializer
+    //annotationProcessor deps.componentinitializer_compiler
+
+    debugApi deps.uetools.uetool
+    releaseApi deps.uetools.uetool_no_op
+    // if you want to show more attrs about Fresco's DraweeView
+    //debugImplementation 'me.ele:uetool-fresco:1.2.9'
+
+    api deps.xcrash
+    debugApi deps.blockcanary.blockcanary_android
+    debugApi deps.crashcanary
+
+    api deps.logger
+
+    debugApi deps.perf
+    debugApi deps.perf_hook
+    debugApi deps.perf_hook_sandhook
+
+    //api deps.xtoast
+    debugApi deps.collie
+
+    api deps.xstarter
+    annotationProcessor deps.xstarter_compiler
+    api deps.boost_multidex
+
+    api deps.eventbus
+    api deps.xaop_runtime
+
+
+    kapt deps.xstarter_compiler
+
+
+
+    api deps.okhttp
+    api deps.rxjava
+    api deps.rxandroid
+    api deps.Retrofit
+    api deps.converter_s
+    api deps.converter_g
+    api deps.adapter_rxjava2
+    api deps.fastjson
+
+}
